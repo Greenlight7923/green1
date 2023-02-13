@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+    <style>
+        .hea{
+            width: 100%;
+            height: 60px;
+            background-color: #e5e5ff;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            z-index: 4;
+        }
+        .ccc{
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            right: 10px;
+            top: 350px;
+        }
+        header a{
+            text-decoration: none;
+            color: #6c6c6c;
+        }
+        .el-table .el-table__cell{
+            padding: 0;
+        }
+        .el-table .cell{
+            white-space: nowrap;/*让内容在一行中显示*/
+            /*text-over*/
+        }
+    </style>
+</head>
+<body style="background-color: #f2e5ff">
+<div id="app" style="width: 1530px">
+    <el-container>
+    <el-header height="150">
+        <div class="hea" style="width: 1530px;height: 25px;text-align: right">
+            <a href="">手机端</a>
+            <a href="https://www.vip.com/?wq=1">其他商铺</a>
+        </div>
+        <div style="width: 1530px;height:120px;">
+            <img src="imgs/kemaple.png" style="width: 220px;height:150px;vertical-align: middle;" alt="">
+            <span>
+                <a href="index.html">首页</a><el-divider direction="vertical"></el-divider>
+                <a href="">签到</a><el-divider direction="vertical"></el-divider>
+                <a href="">购物车</a><el-divider direction="vertical"></el-divider>
+                <a href="detail.html">商品详情页</a><el-divider direction="vertical"></el-divider>
+                <a href="admin.html">内部页面</a>
+            </span>
+        </div>
+        <!--                           导航菜单开始                       -->
+        <div style="width: 1530px">
+         <el-menu style="width:1490px;float: left"
+                  :default-active="1"
+                  class="el-menu-demo"
+                  mode="horizontal"
+                  background-color="#8080ff"
+                  text-color="#fff"
+                  active-text-color="#fff">
+             <el-menu-item>
+                 <el-submenu index="1">
+                     <template slot="title">最近活动</template>
+                     <el-menu-item index="1-1">双11狂欢购</el-menu-item>
+                     <el-menu-item index="1-2">月底大促销</el-menu-item>
+                 </el-submenu>
+             </el-menu-item>
+             <el-menu-item>
+                 <el-submenu index="2">
+                     <template slot="title">折扣商品</template>
+                     <el-menu-item index="2-1">女装</el-menu-item>
+                     <el-menu-item index="2-2">鞋包</el-menu-item>
+                     <el-menu-item index="2-3">大衣</el-menu-item>
+                 </el-submenu>
+             </el-menu-item>
+             <el-menu-item>
+                 <el-submenu index="3">
+                     <template slot="title">运动</template>
+                     <el-menu-item index="3-1">瑜伽用品</el-menu-item>
+                     <el-menu-item index="3-2">安踏</el-menu-item>
+                 </el-submenu>
+             </el-menu-item>
+             <el-menu-item>
+                 <el-submenu index="4">
+                     <template slot="title">男装</template>
+                     <el-menu-item index="4-1">冬季夹克</el-menu-item>
+                     <el-menu-item index="4-2">潮流男靴</el-menu-item>
+                 </el-submenu>
+             </el-menu-item>
+             <el-menu-item>
+                 <el-submenu index="5">
+                     <template slot="title">美妆</template>
+                     <el-menu-item index="5-1">护肤水乳</el-menu-item>
+                     <el-menu-item index="5-2">新品化妆刷</el-menu-item>
+                 </el-submenu>
+             </el-menu-item>
+             <el-menu-item>
+                 <el-submenu index="6">
+                     <template slot="title">电子产品</template>
+                     <el-menu-item index="6-1">佳能相机</el-menu-item>
+                     <el-menu-item index="6-2">iPad Air5</el-menu-item>
+                 </el-submenu>
+             </el-menu-item>
+             <div style="float:right;margin-top: 10px">
+                 <el-input placeholder="请输入" maxlength="100">
+                     <el-button slot="append" icon="el-icon-search"></el-button>
+                 </el-input>
+             </div>
+         </el-menu>
+        </div>
+        <!--                            导航菜单结束                    -->
+    </el-header>
+        <el-main style="width: 1200px;margin: 0 auto">
+            <el-row >
+                <!--                  轮播图开始                  -->
+                <el-col :span="18">
+                    <el-carousel height="300px">
+                        <el-carousel-item v-for="item in bannerArr">
+                            <img :src="item.url" width="100%" height="100%" alt="">
+                        </el-carousel-item>
+                    </el-carousel>
+                </el-col>
+            <!--                                 最近热卖排行开始                               -->
+            <el-col :span="6">
+                <el-card style="height: 300px;background-color: #f2e5ff">
+                    <h3>
+                        <i style="font-weight: bold;color: mediumpurple" class="el-icon-moon-night">~~~~~~~热卖排行</i>
+                    </h3>
+                    <el-divider></el-divider>
+                    <el-table :data="topArr" style="color: #8080ff">
+                        <el-table-column type="index" label="排名" width="50"></el-table-column>
+                        <el-table-column prop="title" label="店铺" width="100"></el-table-column>
+                        <el-table-column prop="saleCount" label="销量" width="80"></el-table-column>
+                    </el-table>
+                </el-card>
+            </el-col>
+            </el-row>
+            <!--                                     最近热卖排行结束                          -->
+            <el-row :gutter="20">
+                <!--                                 商品图片开始                     -->
+                    <el-col v-for="p in productArr" :span="6" style="margin-top: 20px">
+                        <el-card >
+                            <img :src="p.url"  width="100%" alt="">
+                            <div>
+                                <p style="font-size: 15px;height: 40px;margin-top: 0">{{p.title}}</p >
+                                <div style="color: #666">
+                                    <span>￥{{p.price}}</span>
+                                    <s style="font-size: 12px">{{p.oldPrice}}</s>
+                                    <span style="float:right">销量:{{p.saleCount}}</span>
+                                </div>
+                            </div>
+                        </el-card>
+                    </el-col>
+                <!--                            商品图片结束                          -->
+            </el-row>
+
+            <div class="ccc">
+                <img src="imgs/ewm.png" style="width: 100px">
+            </div>
+        </el-main>
+        <el-footer>
+            <div style="background-image: url('imgs/wave.png');height: 95px"></div>
+            <div style="height: 100px;background-color:#e5e5ff;padding: 30px 0;
+         text-align: center;color: #b1b1b1">
+                <a href="">售后服务</a>
+                <a href="">配送方式</a>
+                <p>Copyright © 北京达内金桥科技有限公司版权所有 京ICP备12003709号-3 京公网安备 11010802029572号</p>
+                <p>涵盖20余门课程体系，致力于打造权威的IT职业教育学习平台</p>
+                <p>达内在线WWW.TMOOC.CN 专注于IT职业技能培训</p>
+            </div>
+
+        </el-footer>
+    </el-container>
+</div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<!-- import Vue before Element -->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+<script>
+  let v=new Vue({
+    el: '#app',
+    data: function() {
+      return {
+          categoryArr:[],
+          bannerArr:[],
+          topArr:[{title:"安踏鞋",saleCount:1453},
+              {title:"森马女上装",saleCount:983},
+              {title:"兰蔻菁纯面霜",saleCount:865},
+              {title:"波司登羽绒服",saleCount:811},
+              {title:"小米手机",saleCount:564},
+              {title:"南极人保暖睡衣",saleCount:453}],
+          productArr:[{title:"森马牛仔裤女宽松慢跑裤运动风2022春季新款显瘦束脚长裤复古",price:233,oldPrice:598,url:"imgs/1.1.jpg",saleCount:2342},
+              {title:"森马牛仔裤女宽松慢跑裤运动风2022春季新款显瘦束脚长裤复古",price:233,oldPrice:598,url:"imgs/1.2.jpg",saleCount:2342},
+              {title:"雪中飞墨绿色短袖t恤女夏2022新款纯棉半袖打底体恤夏季上衣潮ins",price:233,oldPrice:598,url:"imgs/1.3.jpg",saleCount:2342},
+              {title:"【佟丽娅同款】鸭鸭明星同款羽绒服2021年冬季新款时尚连帽外套冬",price:233,oldPrice:598,url:"imgs/1.4.jpg",saleCount:2342},
+              {title:"BEASTER小恶魔鬼脸明星同款夹克毛绒保暖加厚字母印花宽松外套ins",price:233,oldPrice:598,url:"imgs/1.4.jpg",saleCount:2342},
+              {title:"香影毛呢外套女中长款2021年冬季新款气质韩版娃娃领紫色呢子大衣",price:233,oldPrice:598,url:"imgs/1.6.jpg",saleCount:2342},
+              {title:"SEMIR森马商场同款打底针织毛衣纯色高领新品显瘦",price:233,oldPrice:598,url:"imgs/1.4.jpg",saleCount:2342},
+              {title:"美特斯邦威女MTEE 贺岁系列中长款风衣736598",price:233,oldPrice:598,url:"imgs/1.4.jpg",saleCount:2342},
+              {title:"imone2021秋款黑色小西装外套女韩版学生宽松学院风外套jk外套",price:233,oldPrice:598,url:"imgs/i.jpg",saleCount:2342},
+              {title:"BEASTER 小恶魔明星同款保暖长袖街头潮流连帽卫衣情侣上衣",price:233,oldPrice:598,url:"imgs/j.jpg",saleCount:2342},
+              {title:"BEASTER 小恶魔明星同款保暖长袖街头潮流连帽卫衣情侣上衣",price:233,oldPrice:598,url:"imgs/1.1.jpg",saleCount:2342},
+              {title:"憨厚皇后100%绵羊皮2021秋海宁真皮皮衣女长款修身绵羊皮风衣外",price:233,oldPrice:598,url:"imgs/k.jpg",saleCount:2342},]
+      }
+    },
+      methods:{
+          handleSelect(key,keyPath){
+              console.log(key);
+          }
+      },
+      created:function () {
+          axios.get("/category/select").then(function (response) {
+              v.categoryArr = response.data;
+          })
+          axios.get("/banner/select").then(function (response) {
+              v.bannerArr = response.data;
+          })
+          //请求排行榜信息
+          axios.get("/product/select/top").then(function (response) {
+              v.topArr = response.data;
+          })
+          //请求所有商品
+          axios.get("product/select/index").then(function (response) {
+              v.productArr = response.data;
+          })
+      }
+  })
+</script>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+  <style>
+    body{
+      background-image: url("imgs/login.png");
+      /*cover设置封面效果*/
+      background-size: cover;
+      margin: 0;
+      text-align: center;
+    }
+    h1{
+      font-size: 72px;
+      color: #518d58;
+      margin-bottom: 0;
+    }
+    img{
+      width: 100px;
+    }
+    h2{
+      font-size: 32px;
+      color: #7ab473;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h1>欢迎来到Kemaple商城</h1>
+  <img alt="">
+  <h2>KeMaple</h2>
+  <el-card style="width:600px;height: 300px;margin: 0 auto;
+  background: rgba(255,255,255,0.3)">
+    <el-form label-width="60px" style="width: 400px;margin: 40px auto">
+      <el-form-item label="用户名">
+        <el-input type="text"  v-model="user.username" placeholder="请输入用户名"></el-input>
+      </el-form-item>
+      <el-form-item label="密码">
+        <el-input  type="password"  v-model="user.password" placeholder="请输入密码"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button style="position:relative;right:30px" type="primary" @click="login"><a href="admin.html" style="color:white;text-decoration:none">登录</a></el-button>
+      </el-form-item>
+    </el-form>
+  </el-card>
+</div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<!-- import Vue before Element -->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+<script>
+  let v=new Vue({
+    el: '#app',
+    data: function() {
+      return {
+        user:{
+          username:'',
+          password:'',
+        }
+      }
+    },
+    methods:{
+      login(){
+        axios.post("/login",v.user).then(function(response){
+          if(response.data==1){
+            location.href="admin.html";
+          }else if(response.data==2){
+            v.$message("密码错误")
+          }else{
+            v.$message("用户名不存在")
+          }
+        })
+      }
+    }
+  })
+</script>
+</html>
